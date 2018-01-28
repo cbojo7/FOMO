@@ -1,0 +1,22 @@
+#red_header{
+    background-color: red;
+    color: white;
+    margin: 0px;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 5px
+}
+
+.footer hr{
+    margin-bottom: 5px;
+}
+ 
+#icon {
+    height: 39.36px;
+}
