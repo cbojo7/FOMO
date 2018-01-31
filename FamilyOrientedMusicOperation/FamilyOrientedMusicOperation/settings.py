@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_mako_plus',
+    'account',
+    # 'formlib',
+    'cuser',
     'homepage',
 ]
 
@@ -52,6 +55,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# AUTH_USER_MODEL = 'cuser.CUser'
+AUTH_USER_MODEL = 'account.User'
+
+
 
 ROOT_URLCONF = 'FamilyOrientedMusicOperation.urls'
 
