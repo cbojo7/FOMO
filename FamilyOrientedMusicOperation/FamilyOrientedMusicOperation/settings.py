@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_mako_plus',
     'account',
-    #'formlib',
-    # 'cuser',
+    # 'formlib',
+    'cuser',
     'homepage',
 ]
 
@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 # AUTH_USER_MODEL = 'cuser.CUser'
-#AUTH_USER_MODEL = 'account.CUser'
+AUTH_USER_MODEL = 'account.User'
 
 
 
