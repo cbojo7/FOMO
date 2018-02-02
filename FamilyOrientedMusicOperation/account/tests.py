@@ -34,7 +34,8 @@ class UserModelTest(TestCase):
         g1.save()
         self.u1.groups.add(g1)
         self.u1.save()
-        self.assertTrue(self.u1.groups.filter(name='SalesPeople'))
+        self.assertTrue(self.u1.group.name='SalesPeople')
+        #self.assertTrue(self.u1.groups.filter(name='SalesPeople'))
         
         #g1.permissions.add(self.u1.groups.get(id=g1.id).first() is not None)
         for p in Permission.objects.all():
