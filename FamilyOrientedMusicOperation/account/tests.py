@@ -4,7 +4,7 @@ from django.contrib.auth.models import Permission, Group, ContentType
 
 class UserModelTest(TestCase):
     
-    fixtures = [ 'data.yaml' ]
+    #fixtures = [ 'data.yaml' ]
 
     def setUp(self):
         self.u1 = amod.User()
@@ -34,8 +34,9 @@ class UserModelTest(TestCase):
         g1.save()
         self.u1.groups.add(g1)
         self.u1.save()
-        # self.assertTrue(self.u1.groups.filter(name='SalesPeople'))
-        g1.permissions.add(self.u1.groups.get(id=g1.id).first() is not None)
+        self.assertTrue(self.u1.groups.filter(name='SalesPeople'))
+        
+        #g1.permissions.add(self.u1.groups.get(id=g1.id).first() is not None)
         for p in Permission.objects.all():
             print(p.codename)
             print(p.name)
@@ -47,5 +48,25 @@ class UserModelTest(TestCase):
         p.name = 'Change the price of a product'
         p.content_type = ContentType.objects.get(id=1)
         p.save()
+
+    def test_passwrod(self):
+        self.u1.set_password('password')
+        self.u1.check_password('password')
+
+    def test_field_change(self):
+        self.u1.first_name = 'Homer'
+        self.u1.save()
+        self.assertEquals(self.u1.first_name, 'Homer')
+
+        self.u1.last_name = 'Homer'
+        self.u1.save()
+        self.assertEquals(self.u1.last_name, 'Homer')
+
+        self.u1.email = 'Homer@homer.com'
+        self.u1.save()
+        self.assertEquals(self.u1.email, 'Homer@homer.com')
+
+
+
         
     
