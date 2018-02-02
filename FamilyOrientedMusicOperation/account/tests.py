@@ -4,7 +4,7 @@ from django.contrib.auth.models import Permission, Group, ContentType
 
 class UserModelTest(TestCase):
     
-    #fixtures = [ 'data.yaml' ]
+    # fixtures = [ 'data.yaml' ]
 
     def setUp(self):
         self.u1 = amod.User()
@@ -29,15 +29,18 @@ class UserModelTest(TestCase):
         g1.save()
         self.u1.groups.add(g1)
         self.u1.save()
-        #self.u1.objects.get(group.name)
-        #self.assertTrue(self.u1.group.name='SalesPeople')
-        self.assertTrue(self.u1.groups.filter(name='SalesPeople'))
+        self.assertTrue(self.u1.groups.filter(id=g1.id))
+        
         g1.permissions.add(Permission.objects.get(id=g1.id))
         p = Permission()
         p.codename = 'change_product_price'
         p.name = 'Change the price of a product'
         p.content_type = ContentType.objects.get(id=1)
         p.save()
+
+        g1.permissions.add(p)
+        g1.save()
+        #self.assertEquals(self.u1.groups.Permission.filter(codename='change_product_price'), 'change_product_price')
 
     def test_passwrod(self):
         self.u1.set_password('password')
