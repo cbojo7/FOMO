@@ -10,6 +10,7 @@ def process_request(request):
         if form.is_valid():
             # work of the form - create user, login user, purchase
             return HttpResponseRedirect('/')
+
     else:
         form = TestForm()
 
@@ -21,4 +22,4 @@ def process_request(request):
 
 class TestForm(forms.Form):
     comment = forms.CharField(label='your comment')
-    #renewal_date = forms.DateField(help_text="enter date")
+    renewal_date = forms.DateField(help_text="enter date")
