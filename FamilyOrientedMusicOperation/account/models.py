@@ -1,8 +1,8 @@
 from django.db import models
-from cuser.models import AbstractCUser
+#from cuser.models import AbstractCUser
+from django.contrib.auth.models import AbstractUser
 
-
-class User(AbstractCUser):
+class User(AbstractUser):
     birthdate = models.DateTimeField(null=True)
     address = models.TextField(null=True, blank=True)
     city = models.TextField(null=True, blank=True)

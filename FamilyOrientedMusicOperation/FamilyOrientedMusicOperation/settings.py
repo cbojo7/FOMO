@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django_mako_plus',
     'account',
     # 'formlib',
-    'cuser',
+    # 'cuser',
     'homepage',
 ]
 
@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# AUTH_USER_MODEL = 'cuser.CUser'
+#AUTH_USER_MODEL = 'cuser.CUser'
 AUTH_USER_MODEL = 'account.User'
 
 
