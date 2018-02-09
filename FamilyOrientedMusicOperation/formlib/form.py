@@ -67,7 +67,7 @@ class Formless(forms.Form):
     form_action = None
     form_method = 'POST'
     submit_text = 'Submit'
-    field_css = [ 'form-control', 'float-label-control']
+    field_css = [ 'form-control' ]
 
     def __init__(self, request, *args, **kwargs):
         '''Constructor'''

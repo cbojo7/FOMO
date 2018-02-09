@@ -2,7 +2,7 @@
 ## Therefore, links() must be included explicitly to get form.css and/or form.js, if they exist.
 ${ django_mako_plus.links(self) }
 
-<div class="form-container" >
+<div class="form-container">
     <form id="${ form.form_id }" action="${ form.form_action or '' }" method="${ form.form_method }">
 
         ## csrf token

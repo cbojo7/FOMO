@@ -13,8 +13,6 @@ def process_request(request):
     form = TestForm(request)
     
     if form.is_valid():
-        print(self.u)
-        
         # work of the form - create user, login user, purchase
         return HttpResponseRedirect('/')
 
@@ -29,8 +27,4 @@ class TestForm(Formless):
     def init(self):
         self.fields['email'] = forms.CharField(label='email')
         self.fields['password'] = forms.DateField(help_text="password")
-        self.u = None
 
-    def clean(self):
-        self.u = self.cleaned_data.get('email')
-        return self.cleaned_data
