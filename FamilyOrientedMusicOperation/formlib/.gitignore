@@ -1,0 +1,9 @@
+*.log
+*.pot
+*.pyc
+.DS_Store
+.cached_templates/
+.sass-cache/
+*.css.map
+django.mo
+venv/

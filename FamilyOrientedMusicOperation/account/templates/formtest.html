@@ -2,10 +2,6 @@
 
 <%block name="head">
 
-    <form action="/account/formtest/" method="POST">
-        ${ csrf_input }
-        ${ form.as_p() }
-        <input type="submit" value="Submit">
-    </form>
+    ${ form }
 
 </%block>
