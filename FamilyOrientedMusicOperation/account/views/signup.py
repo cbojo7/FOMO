@@ -25,6 +25,24 @@ class SignUp(Formless):
         self.fields['city'] = forms.CharField(label='City')
         self.fields['state'] = forms.CharField(label='State')
         self.fields['zip'] = forms.CharField(label='Zip')
-        self.fields['email'] = forms.CharField(label='Email')
+        self.fields['email'] = forms.EmailField(label='Email')
         self.fields['password'] = forms.CharField(label='Password')
-        self.fields['password1'] = forms.CharField(label='Confirm Password')
+        self.fields['password2'] = forms.CharField(label='Confirm Password')
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        #do your logic
+
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if len(password) < 8:
+            raise forms.ValidationError('Password must be at least 8 characters long')
+        return password
+
+    def clean(self):
+        p1 = self.cleaned_data.get('password')
+        p2 = self.cleaned_data.get('password2')
+        if p1 != p2:
+            raise forms.ValidationError('Passwords do not match')
+        return self.cleaned_data
