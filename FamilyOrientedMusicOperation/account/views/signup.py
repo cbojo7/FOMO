@@ -4,13 +4,16 @@ from django.http import HttpResponseRedirect
 from formlib import Formless
 from django.conf import settings
 import re
+from account import models as amod
+
 
 @view_function
 def process_request(request):
     form = SignUp(request)
+    
     if form.is_valid():
-        
-        #form.commit()
+        form.commit()
+        print('it worked')
         return HttpResponseRedirect('/account/index/')
     context = {
         'form' : form,
@@ -49,3 +52,15 @@ class SignUp(Formless):
         if p1 != p2:
             raise forms.ValidationError('Passwords do not match')
         return self.cleaned_data
+
+    def commit(self):
+        self.u1 = amod.User()
+        self.u1.firstName = self.fields['firstName']
+        self.u1.lastName = self.fields['lastName']
+        self.u1.address = self.fields['address']
+        self.u1.city = self.fields['city']
+        self.u1.state = self.fields['state']
+        self.u1.zip = self.fields['zip']
+        self.u1.email = self.fields['email']
+        self.u1.set_password('password')
+        self.u1.save()
