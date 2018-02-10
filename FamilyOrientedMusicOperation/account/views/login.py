@@ -6,15 +6,11 @@ from formlib import Formless
 
 @view_function
 def process_request(request):
-    # process the form
-    # if request.method == 'POST':
-    #     print(request.POST['comment'], type(request.POST['comment']))
-    #     print(request.POST['renewal_date'], type(request.POST['renewal_date']))
+
     form = TestForm(request)
-    
     if form.is_valid():
-        # work of the form - create user, login user, purchase
-        return HttpResponseRedirect('/')
+        form.commit()
+        return HttpResponseRedirect('/account/')
 
     # render the form
     context = {
@@ -27,4 +23,14 @@ class TestForm(Formless):
     def init(self):
         self.fields['email'] = forms.CharField(label='email')
         self.fields['password'] = forms.DateField(help_text="password")
+        self.user = None
+    
+    def clean(self):
+        self.user = authenticate(email=self.cleaned_data.get('email'), password=self.cleaned_data.get('password'))
+        if self.user is None:
+            raise forms.ValidationError('Invalid email or password')
+        return self.cleaned_data
+
+    def commit(self):
+        login(self.request, self.user)
 

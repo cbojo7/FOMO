@@ -3,6 +3,7 @@ from django import forms
 from django.http import HttpResponseRedirect
 from formlib import Formless
 from django.conf import settings
+import re
 
 @view_function
 def process_request(request):
@@ -38,6 +39,8 @@ class SignUp(Formless):
         password = self.cleaned_data.get('password')
         if len(password) < 8:
             raise forms.ValidationError('Password must be at least 8 characters long')
+        if re.search('\d', password) is None:
+            raise forms.ValidationError('Password must contain a number')
         return password
 
     def clean(self):
