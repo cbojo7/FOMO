@@ -9,5 +9,5 @@ class User(AbstractCUser):
     state = models.TextField(null=True, blank=True)
     zipcode = models.TextField(null=True, blank=True)
 
-    def get_purchases(self):
-        return [ 'Roku', 'Apple TV', 'Chromecast']
+    # def get_purchases(self):
+    #     return [ 'Roku', 'Apple TV', 'Chromecast']

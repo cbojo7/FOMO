@@ -34,7 +34,10 @@ class SignUp(Formless):
         self.fields['password2'] = forms.CharField(label='Confirm Password')
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        emailCheck = self.cleaned_data.get('email')
+        if amod.User.objects.filter(email=emailCheck).exists():
+            raise forms.ValidationError('Email already exists')
+        return emailCheck
         #do your logic
 
 
@@ -55,12 +58,12 @@ class SignUp(Formless):
 
     def commit(self):
         self.u1 = amod.User()
-        self.u1.firstName = self.fields['firstName']
-        self.u1.lastName = self.fields['lastName']
-        self.u1.address = self.fields['address']
-        self.u1.city = self.fields['city']
-        self.u1.state = self.fields['state']
-        self.u1.zip = self.fields['zip']
-        self.u1.email = self.fields['email']
+        self.u1.first_name = self.cleaned_data['firstName']
+        self.u1.last_name = self.cleaned_data['lastName']
+        self.u1.address = self.cleaned_data['address']
+        self.u1.city = self.cleaned_data['city']
+        self.u1.state = self.cleaned_data['state']
+        self.u1.zip =self.cleaned_data['zip']
+        self.u1.email = self.cleaned_data['email']
         self.u1.set_password('password')
         self.u1.save()
