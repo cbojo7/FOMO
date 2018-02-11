@@ -5,5 +5,5 @@ from formlib import Formless
 
 @view_function
 def process_request(request):
-
-    return HttpResponseRedirect('/')
+    logout(self.request)
+    return HttpResponseRedirect('/homepage/')

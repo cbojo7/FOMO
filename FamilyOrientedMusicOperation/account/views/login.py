@@ -9,8 +9,7 @@ import re
 
 @view_function
 def process_request(request):
-
-    form = TestForm(request)
+    form = LoginForm(request)
     if form.is_valid():
         form.commit()
         return HttpResponseRedirect('/account/')
@@ -21,20 +20,24 @@ def process_request(request):
     }
     return request.dmp_render('login.html', context)
 
-class TestForm(Formless):
+class LoginForm(Formless):
     
     def init(self):
         self.fields['email'] = forms.CharField(label='email')
-        self.fields['password'] = forms.CharField(help_text="password")
+        self.fields['password'] = forms.CharField(label="password")
         self.user = None
     
     def clean(self):
-        self.user = authenticate(email=self.cleaned_data.get('email'), password=self.cleaned_data.get('password'))
-        if self.user is not None:
+        self.user = authenticate(self.request, email=self.cleaned_data.get('email'), password=self.cleaned_data.get('password'))
+        if self.user is None:
             return self.cleaned_data
         else:
             raise forms.ValidationError('Invalid email or password')
 
     def commit(self):
         login(self.request, self.user)
+        user = self.user
+        context = {
+            'user' : user,
+        }
 
