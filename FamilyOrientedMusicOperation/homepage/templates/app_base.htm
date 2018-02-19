@@ -35,6 +35,11 @@
     </nav>
 </%block>
 
+</%block name="center">
+% if request.user.is_authenticated:
+${ request.user.get_full_name() }
+% else:
+Account
 <%block name="footer">
     <footer class="footer">
         <hr />
