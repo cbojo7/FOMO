@@ -1,0 +1,40 @@
+<%inherit file="app_base.htm" />
+
+
+<%block name='center'>
+   <br>
+    <table class='table table-hover'>
+        <thead>
+            <tr>
+                <th>
+                    <td>Name</td>
+                    <td>Product Type</td>
+                    <td>Price</td>
+                    <td>Category</td>
+                    <td>Quantity</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        % for p in products:
+            <tr>
+                <td></td>
+                <td>${ p.name }</td>
+                <!-- ${p.__class__.__name__} -->
+                <td>${ p.TITLE }</td>
+                <td>$${ p.price }</td>
+                <td>${ p.category }</td>
+                <td>${ p.get_quantity() }</td>
+                <td><a href="edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td><a href="delete"><span class="glyphicon glyphicon-remove"></span></a></td>
+            </tr>
+        %endfor
+        </tbody>
+    </table>
+
+    <a href='create'><button class='btn btn-primary'>Create</button></a>
+ 
+</%block>
+
