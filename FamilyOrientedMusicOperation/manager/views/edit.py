@@ -8,8 +8,8 @@ from catalog import models as cmod
 
 
 @view_function
-def process_request(request):
-    form = SignUp(request)
+def process_request(request, product:cmod.Product.pid):
+    form = Edit(request)
     
     if form.is_valid():
         form.commit()
@@ -22,11 +22,11 @@ def process_request(request):
 class Edit(Formless):
     
     def init(self):
-        name = models.TextField(label='Name')
-        description = models.TextField(label='Description')
-        category = models.TextField(label='Category')
-        price = models.DecimalField(label='Price', max_digits=7, decimal_places=2)
-        status = models.TextField(lable='Active')
+        self.fields['name'] = forms.CharField(label='Name')
+        self.fields['description'] = forms.CharField(label='Description')
+        self.fields['category'] = forms.CharField(label='Category')
+        self.fields['price'] = forms.CharField(label='Price')
+        self.fields['status'] = forms.CharField(label='Active')
 
     def clean(self):
         name = self.cleaned_data.get('name')

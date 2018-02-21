@@ -27,7 +27,7 @@
                 <td>$${ p.price }</td>
                 <td>${ p.category }</td>
                 <td>${ p.get_quantity() }</td>
-                <td><a href="edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td><a href="edit" value='${p.pid}'><span class="glyphicon glyphicon-pencil"></span></a></td>
                 <td><a href="delete"><span class="glyphicon glyphicon-remove"></span></a></td>
             </tr>
         %endfor
