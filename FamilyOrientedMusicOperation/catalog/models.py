@@ -1,24 +1,16 @@
 from django.db import models
 from polymorphic.models import PolymorphicModel
 
-
-# class Product(models.Model):
-#     product_id = models.IntegerField(null=False)
-#     product_name = models.TextField(null=False)
-#     product_category_id = models.IntegerField(null=False)
-#     product_price = models.DecimalField(null=False)
-#     product_description = models.TextField(null=False)
-#     product_quantity = models.IntegerField(null=False)
-#     product_status = models.TextField(null=False)
-#     create_date = models.DateTimeField(auto_now=True)
-#     last_modified = models.DateTimeField(auto_now=True)
-
-# class Product_category(product):
-#     product_category_id = models.IntegerField(null=False)
-#     product_category_name = models.TextField(null=False)
-
-
 class Category(models.Model):
+    CATEGORY_CHOICES = (
+        ('Sheet Music', 'Sheet Music'),
+        ('accessories', 'Accessories'),
+        ('brass_instrument', 'Brass Instrument'),
+        ('woodwind_instrument', 'Woodwind Instrument'),
+        ('string_instrument', 'String Instrument'),
+        ('percussion_instrument', 'Percussion Instrument')
+    )
+
     create_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     name = models.TextField()
@@ -59,6 +51,7 @@ class BulkProduct(Product):
     quantity = models.IntegerField()
     reorder_trigger = models.IntegerField()
     reorder_quantity = models.IntegerField()
+    pid = models.TextField(default=1)
 
     def get_quantity(self):
         return self.quantity
