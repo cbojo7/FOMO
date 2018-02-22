@@ -51,6 +51,9 @@ class Product(PolymorphicModel):
     def get_quantity(self):
         return 1
 
+    def get_choices(self):
+        return TYPE_CHOICES
+
 class BulkProduct(Product):
     TITLE='Bulk'
     quantity = models.IntegerField()
