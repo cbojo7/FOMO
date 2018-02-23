@@ -3,6 +3,7 @@
 
 <%block name='center'>
    <br>
+   <h1 class="text-center">Product Overview</h1>
     <table class='table table-hover'>
         <thead>
             <tr>
@@ -28,13 +29,13 @@
                 <td>${ p.category }</td>
                 <td>${ p.get_quantity() }</td>
                 <td><a href="/manager/edit/${ p.id }" ><span class="glyphicon glyphicon-pencil"></span></a></td>
-                <td><a href="delete"><span class="glyphicon glyphicon-remove"></span></a></td>
+                <td><a href="/manager/delete/${ p.id }"><span class="glyphicon glyphicon-remove"></span></a></td>
             </tr>
         %endfor
         </tbody>
     </table>
 
-    <a href='create'><button class='btn btn-primary'>Create</button></a>
+    <a href='/manager/create'><button class='btn btn-primary'>Create</button></a>
  
 </%block>
 

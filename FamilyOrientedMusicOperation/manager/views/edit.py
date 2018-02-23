@@ -11,13 +11,16 @@ from catalog import models as cmod
 def process_request(request, id:int=0):
     
     prod = cmod.Product.objects.get(id=id)
+    #  if prod.TITLE == 'Individual':
     initial = { 'name': prod.name, 'description' : prod.description, 'category': prod.category, 'price': prod.price, 'status': prod.status}
-
+    # elif prod.TITLE == 'Bulk':
+    #     initial = { 'name': prod.name, 'description' : prod.description, 'category': prod.category, 'price': prod.price, 'status': prod.status, 'quantity': prod.quantity, 'reorder_trigger': prod.reorder_trigger, 'reorder_quantity': prod.reorder_quantity}
+    
     form = Edit(request, initial=initial)
     
     if form.is_valid():
         form.commit(prod)
-        return HttpResponseRedirect('/manage/list/')
+        return HttpResponseRedirect('/manager/list/')
     context = {
         'form' : form,
     }
@@ -28,7 +31,7 @@ class Edit(Formless):
     def init(self):
         self.fields['name'] = forms.CharField(label='Name')
         self.fields['description'] = forms.CharField(label='Description')
-        self.fields['category'] = forms.ChoiceField(choices=cmod.Category.CATEGORY_CHOICES, label='Category')
+        self.fields['category'] = forms.ModelChoiceField(queryset=cmod.Category.objects.order_by('name').all(), label='Category')
         self.fields['price'] = forms.CharField(label='Price')
         self.fields['status'] = forms.ChoiceField(choices=cmod.Product.STATUS_CHOICES, label='Status')
 
@@ -46,4 +49,3 @@ class Edit(Formless):
         p.price = self.cleaned_data['price']
         p.status = self.cleaned_data['status']
         p.save()
-

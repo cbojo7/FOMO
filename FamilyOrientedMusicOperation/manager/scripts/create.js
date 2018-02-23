@@ -1,5 +1,3 @@
-alert("hi");
-
 $(function(){
     var choice = $('#id_type')
     choice.on('change', function(){

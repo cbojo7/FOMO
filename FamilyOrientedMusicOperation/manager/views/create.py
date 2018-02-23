@@ -13,7 +13,7 @@ def process_request(request):
 
     if form.is_valid():
         form.commit()
-        return HttpResponseRedirect('/manage/list/')
+        return HttpResponseRedirect('/manager/list/')
     context = {
         'form' : form,
     }
@@ -22,50 +22,74 @@ def process_request(request):
 class Create(Formless):
     
     def init(self):
-        self.fields['type'] = forms.ChoiceField(choices=cmod.Product.TYPE_CHOICES, label='Product Type')
+        self.fields['title'] = forms.ChoiceField(choices=cmod.Product.TYPE_CHOICES, label='Product Type')
         self.fields['name'] = forms.CharField(label='Name')
         self.fields['description'] = forms.CharField(label='Description')
-        self.fields['category'] = forms.ChoiceField(choices=cmod.Category.CATEGORY_CHOICES, label='Category')
+        self.fields['category'] = forms.ModelChoiceField(queryset=cmod.Category.objects.order_by('name').all(), label='Category')
         self.fields['price'] = forms.CharField(label='Price')
         self.fields['status'] = forms.ChoiceField(choices=cmod.Product.STATUS_CHOICES, label='Active')
-        self.fields['quantity'] = forms.CharField(label='Quantity')
-        self.fields['reorder_trigger'] = forms.CharField(label='Reorder Trigger')
-        self.fields['reorder_quantity'] = forms.CharField(label='Reorder Quantity')
-        self.fields['max_rental_days'] = forms.CharField(label='Max Rental Days')
-        self.fields['retire_date'] = forms.DateField(label='Retire Date')
+        self.fields['quantity'] = forms.CharField(label='Quantity', required=False)
+        self.fields['reorder_trigger'] = forms.CharField(label='Reorder Trigger', required=False)
+        self.fields['reorder_quantity'] = forms.CharField(label='Reorder Quantity', required=False)
+        self.fields['max_rental_days'] = forms.CharField(label='Max Rental Days', required=False)
+        self.fields['retire_date'] = forms.DateField(label='Retire Date', required=False)
         self.fields['pid'] = forms.CharField(label='Product ID')
+    
+    # def clean_pid(self):
+        # pidCheck = self.cleaned_data.get('pid')
+        # if cmod.Product.objects.filter(pid=pidCheck).exists():
+        #     raise forms.ValidationError('ProductID already exists')
+        # return pidCheck
 
     def clean(self):
-        type = self.cleaned_data('type')
         name = self.cleaned_data.get('name')
         description = self.cleaned_data.get('description')
         category = self.cleaned_data.get('category')
         price = self.cleaned_data.get('price')
         status = self.cleaned_data.get('status') 
-        quantity = self.cleaned_data.get('quantity') 
-        reorder_trigger = self.cleaned_data.get('reorder_trigger') 
-        reorder_quantity = self.cleaned_data.get('reorder_quantity') 
-        max_rental_days = self.cleaned_data.get('max_rental_days') 
-        retire_date = self.cleaned_data.get('reitre_date') 
-        pid = self.cleaned_data.get('pid') 
-
+        pid = self.cleaned_data.get('pid')
+        
+        if self.cleaned_data.get('title') == 'BulkProduct':
+            if self.cleaned_data.get('quantity') is None:
+                 raise forms.ValidationError('Enter Quantity')
+            else:
+                quantity = self.cleaned_data.get('quantity')
+            if self.cleaned_data.get('reorder_trigger') is None:
+                 raise forms.ValidationError('Enter Reorder Trigger')
+            else: 
+                reorder_trigger = self.cleaned_data.get('reorder_trigger') 
+            if self.cleaned_data.get('reorder_quantity') is None:
+                 raise forms.ValidationError('Enter Reorder Quantity')
+            else: 
+                reorder_quantity = self.cleaned_data.get('reorder_quantity') 
+        elif self.cleaned_data.get('title') == 'RentalProduct':
+            
+            max_rental_days = self.cleaned_data.get('max_rental_days') 
+            retire_date = self.cleaned_data.get('retire_date') 
+        elif self.cleaned_data.get('title') == 'IndividualProduct':
+            pass
+        
     def commit(self):
-        self.p = cmod.Product()
-        self.p.type = self.cleaned_data['type']
-        self.p.name = self.cleaned_data['name']
-        self.p.description = self.cleaned_data['description']
-        self.p.category = self.cleaned_data['category']
-        self.p.price = self.cleaned_data['price']
-        self.p.status = self.cleaned_data['status']
-        # if p.type = 'BulkProduct':
-        #     self.p.quantity = self.cleaned_data['quantity']
-        #     self.p.reorder_trigger = self.cleaned_data['reorder_trigger']
-        #     self.p.reorder_quantity = self.cleaned_data['reorder_quantity']
-        # if p.type = 'RentalProduct':
-        #     self.p.max_rental_days = self.cleaned_data['max_rental_days']
-        #     self.p.retire_date = self.cleaned_data['retire_date']
-        #     self.p.pid = self.cleaned_data['pid']
-        # if p.type = 'IndividualProduct':
-        #     self.p.pid = self.cleaned_data['pid']
-        self.p.save()
+             
+        if self.cleaned_data.get('title') == 'BulkProduct':
+            p = cmod.BulkProduct()
+            p.quantity = self.cleaned_data['quantity']
+            p.reorder_trigger = self.cleaned_data['reorder_trigger']
+            p.reorder_quantity = self.cleaned_data['reorder_quantity']
+        elif self.cleaned_data.get('title') == 'RentalProduct':
+            p = cmod.RentalProduct()
+            p.max_rental_days = self.cleaned_data['max_rental_days']
+            p.retire_date = self.cleaned_data['retire_date']
+            p.pid = self.cleaned_data['pid']
+        elif self.cleaned_data.get('title') == 'IndividualProduct':
+            p = cmod.IndividualProduct()
+            p.pid = self.cleaned_data['pid']
+
+        p.TITLE = self.cleaned_data['title']
+        p.name = self.cleaned_data['name']
+        p.description = self.cleaned_data['description']
+        p.category = self.cleaned_data['category']
+        p.price = self.cleaned_data['price']
+        p.status = self.cleaned_data['status']
+        p.save()
 
