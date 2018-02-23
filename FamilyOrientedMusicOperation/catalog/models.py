@@ -42,12 +42,12 @@ class Product(PolymorphicModel):
 
     def get_quantity(self):
         return 1
-        
+
 class BulkProduct(Product):
     TITLE='Bulk'
-    quantity = models.IntegerField()
-    reorder_trigger = models.IntegerField()
-    reorder_quantity = models.IntegerField()
+    quantity = models.IntegerField(default=-1)
+    reorder_trigger = models.IntegerField(default=-1)
+    reorder_quantity = models.IntegerField(default=-1)
     pid = models.TextField(default=1)
 
     def get_quantity(self):

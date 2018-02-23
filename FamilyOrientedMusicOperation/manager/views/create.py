@@ -42,32 +42,28 @@ class Create(Formless):
         # return pidCheck
 
     def clean(self):
-        name = self.cleaned_data.get('name')
-        description = self.cleaned_data.get('description')
-        category = self.cleaned_data.get('category')
-        price = self.cleaned_data.get('price')
-        status = self.cleaned_data.get('status') 
-        pid = self.cleaned_data.get('pid')
-        
+        # name = self.cleaned_data.get('name')
+        # description = self.cleaned_data.get('description')
+        # category = self.cleaned_data.get('category')
+        # price = self.cleaned_data.get('price')
+        # status = self.cleaned_data.get('status') 
+        # pid = self.cleaned_data.get('pid')
+        # quantity = self.cleaned_data.get('quantity')
+        # reorder_quantity = self.cleaned_data.get('reorder_quantity') 
+        # reorder_trigger = self.cleaned_data.get('reorder_trigger') 
         if self.cleaned_data.get('title') == 'BulkProduct':
-            if self.cleaned_data.get('quantity') is None:
+            if not self.cleaned_data.get('quantity'):
                  raise forms.ValidationError('Enter Quantity')
-            else:
-                quantity = self.cleaned_data.get('quantity')
-            if self.cleaned_data.get('reorder_trigger') is None:
+            if not self.cleaned_data.get('cleaned_data'):
                  raise forms.ValidationError('Enter Reorder Trigger')
-            else: 
-                reorder_trigger = self.cleaned_data.get('reorder_trigger') 
-            if self.cleaned_data.get('reorder_quantity') is None:
+            if not self.cleaned_data.get('cleaned_data'):
                  raise forms.ValidationError('Enter Reorder Quantity')
-            else: 
-                reorder_quantity = self.cleaned_data.get('reorder_quantity') 
-        elif self.cleaned_data.get('title') == 'RentalProduct':
             
-            max_rental_days = self.cleaned_data.get('max_rental_days') 
-            retire_date = self.cleaned_data.get('retire_date') 
-        elif self.cleaned_data.get('title') == 'IndividualProduct':
-            pass
+        if self.cleaned_data.get('title') == 'RentalProduct':
+            if not self.cleaned_data.get('max_rental_days'):
+                raise forms.ValidationError('Enter Rental Days')
+            if not self.cleaned_data.get('retire_date'):
+                raise forms.ValidationError('Enter Retire Date')
         
     def commit(self):
              

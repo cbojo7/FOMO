@@ -4,6 +4,7 @@
     <h2 class="text-center">Create Product</h2>
     ${ form }
     <script>$(function(){
+
         var choice = $('#id_title')
         choice.on('change', function(){
             var choice2 = $('#id_title')
@@ -29,6 +30,6 @@
                 $('#id_reorder_quantity').parent().hide();
                 $('#id_reorder_trigger').parent().hide();
             }
-        })
+        }).trigger('change')
     })</script>
 </%block>
