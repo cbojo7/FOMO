@@ -1,15 +1,15 @@
 from django.db import models
 from polymorphic.models import PolymorphicModel
+from django.conf import settings
 
 class Category(models.Model):
-    CATEGORY_CHOICES = (
-        ('Sheet Music', 'Sheet Music'),
-        ('accessories', 'Accessories'),
-        ('brass_instrument', 'Brass Instrument'),
-        ('woodwind_instrument', 'Woodwind Instrument'),
-        ('string_instrument', 'String Instrument'),
-        ('percussion_instrument', 'Percussion Instrument')
-    )
+    # CATEGORY_CHOICES = (
+    #     ('instrument', 'Instrument'),
+    #     ('sheet_music', 'Sheet Music'),
+    #     ('electronics', 'Electronics'),
+    #     ('software', 'Software'),
+    #     ('lesson_books', 'Lesson Books'),
+    # ) 
 
     create_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
@@ -43,6 +43,25 @@ class Product(PolymorphicModel):
     def get_quantity(self):
         return 1
 
+    def image_url(self):
+        # do query to get foreign key
+        if self.images.all() is None:
+            url = settings.STATIC_URL + 'catalog/media/products/notfound.png'
+        else:
+            url = settings.STATIC_URL + 'catalog/media/products/' + self.images.all().first().filename
+        return url
+    
+    def images_urls(self):
+        base_url = settings.STATIC_URL + 'catalog/media/products/'
+        image_list = []
+        if self.images.all() is None:
+            return [ settings.STATIC_URL + 'catalog/media/products/notfound.png' ]
+        else:
+            for p in self.images.all():
+                image_url = base_url + p.filename
+                image_list.append(image_url)
+            return image_list
+        
 class BulkProduct(Product):
     TITLE='Bulk'
     quantity = models.IntegerField(default=-1)
@@ -68,3 +87,11 @@ class RentalProduct(Product):
 
     def get_quantity(self):
         return 1
+
+class ProductImage(models.Model):
+    product = models.ForeignKey('Product', related_name="images", on_delete=models.CASCADE)
+    filename = models.TextField()
+    create_date = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+

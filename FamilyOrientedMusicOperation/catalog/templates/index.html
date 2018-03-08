@@ -1,7 +1,34 @@
-<%inherit file="app_base.htm" />
-<!-- 
-<%block name="content">
-    <div class="content">
-       
+<%inherit file="homepage/templates/app_base.htm" />
+
+<%block name="head">
+<br><br>
+
+</%block>
+<%block name="left">
+    <ul id="category_list">
+        <li class="${ 'active' if category is None else ''}"><a href="/catalog/index/">All Products</a></li>
+        %for c in categories:
+            <li class="${ 'active' if id == c.id else ''}"><a href="/catalog/index/${ c.id }/">${ c.name }</a></li>
+        %endfor
+    </ul>
+</%block>
+
+
+<%block name="center">
+
+<h1 class="text-center">${ 'Products' if category is None else category.name }</h1>
+
+<div id="paginator" class="text-right">
+        <a id="previous_page"><span aria-hidden="true">&laquo;</span></a>
+        Page <span id="page_number">1</span> of ${ page_count }
+        <a id="next_page"><span aria-hidden="true">&raquo;</span></a>
     </div>
-</%block> -->
+    <div id="product_container">
+        
+    </div>
+
+    
+
+</%block>
+
+

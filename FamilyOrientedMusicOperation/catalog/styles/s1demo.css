@@ -1,0 +1,32 @@
+#product_list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#product_list > li {
+    display: inline-block;
+    margin: 12px 18px;
+    border: 2px solid #cccccc;
+    padding: 12px;
+    border-radius: 4px;
+    width: 90px;
+    min-height: 90px;
+    overflow-y: hidden;
+    vertical-align: top;
+    POSITION: RELATIVE;
+}
+
+#product_list > li > .price {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color: teal;
+    color: white;
+    padding: 6px;
+    border-radius: 12px;
+    
+}
+
+
+    

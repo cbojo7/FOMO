@@ -24,7 +24,7 @@ def process_request(request, id:int=0):
     context = {
         'form' : form,
     }
-    return request.dmp_render('edit.html', context)
+    return request.dmp.render('edit.html', context)
 
 class Edit(Formless):
     

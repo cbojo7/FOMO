@@ -1,9 +1,46 @@
 <%inherit file="app_base.htm" />
 
+
 <%block name="head">
-    <div class="image-container">
-        <img src="${ STATIC_URL }homepage/media/home-banner.jpg" class="header-img" />
-        <div class="after"> >>FOMO<< </div>
-        <div class="btn">SHOP NOW</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <a class='maincontent' href="#maincontent">Main Content</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 image-container">
+                <img src="${ STATIC_URL }homepage/media/note.png" class="header-img" alt="Abstract Musical Note Graphic" />
+            </div>
+            <div class="col-lg-6 the_title">
+                <p>>>FOMO<<</p>
+                <button class="btn-primary btn font">Shop Now</button>
+            </div>
+            
+        </div>
     </div>
+    <div class="container" id="maincontent">
+        <div class="row">
+            <div class="col-md 12">
+                <p>Donec in faucibus ante, sed ullamcorper enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ac laoreet diam, et vestibulum ligula. Integer ullamcorper mattis odio. Nulla faucibus odio in ipsum cursus consectetur. Etiam non augue lacus. Duis ut ex ac ligula tempus faucibus. Phasellus mollis cursus mauris, non finibus orci. Quisque euismod diam condimentum lacus tincidunt ultrices.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                    <p>Donec in faucibus ante, sed ullamcorper enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ac laoreet diam, et vestibulum ligula. Integer ullamcorper mattis odio. Nulla faucibus odio in ipsum cursus consectetur. Etiam non augue lacus. Duis ut ex ac ligula tempus faucibus. Phasellus mollis cursus mauris, non finibus orci. Quisque euismod diam condimentum lacus tincidunt ultrices.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                    <p>Donec in faucibus ante, sed ullamcorper enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ac laoreet diam, et vestibulum ligula. Integer ullamcorper mattis odio. Nulla faucibus odio in ipsum cursus consectetur. Etiam non augue lacus. Duis ut ex ac ligula tempus faucibus. Phasellus mollis cursus mauris, non finibus orci. Quisque euismod diam condimentum lacus tincidunt ultrices.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                    <p>Donec in faucibus ante, sed ullamcorper enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ac laoreet diam, et vestibulum ligula. Integer ullamcorper mattis odio. Nulla faucibus odio in ipsum cursus consectetur. Etiam non augue lacus. Duis ut ex ac ligula tempus faucibus. Phasellus mollis cursus mauris, non finibus orci. Quisque euismod diam condimentum lacus tincidunt ultrices.</p>
+            </div>
+        </div>
+    </div>
+    
+
 </%block>

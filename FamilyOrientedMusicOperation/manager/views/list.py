@@ -9,4 +9,4 @@ def process_request(request):
     context = {
         'products' : cmod.Product.objects.filter(status='A'),
     }
-    return request.dmp_render('list.html', context)
+    return request.dmp.render('list.html', context)

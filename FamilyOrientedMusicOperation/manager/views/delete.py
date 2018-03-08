@@ -12,4 +12,4 @@ def process_request(request, id:int=0):
     
     return HttpResponseRedirect('/manager/list/')
 
-    return request.dmp_render('list.html')
+    return request.dmp.render('list.html')

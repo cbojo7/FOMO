@@ -10,4 +10,4 @@ def process_request(request):
         print(request.POST['email'])
     context = {
     }
-    return request.dmp_render('contact.html', context)
+    return request.dmp.render('contact.html', context)

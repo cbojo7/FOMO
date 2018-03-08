@@ -13,4 +13,4 @@ def process_request(request, product:cmod.Product=None):
     context = {
 
     }
-    return request.dmp_render('index.html', context)
+    return request.dmp.render('index.html', context)
