@@ -45,8 +45,8 @@ class Product(PolymorphicModel):
 
     def image_url(self):
         # do query to get foreign key
-        if self.images.all() is None:
-            url = settings.STATIC_URL + 'catalog/media/products/notfound.png'
+        if self.images.first() is None:
+            url = settings.STATIC_URL + 'catalog/media/products/notfound.jpg'
         else:
             url = settings.STATIC_URL + 'catalog/media/products/' + self.images.all().first().filename
         return url

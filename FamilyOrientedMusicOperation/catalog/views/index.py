@@ -25,13 +25,27 @@ def process_request(request, category:cmod.Category = None):
         'categories' : categories, 
         'category' : category,
         'page_count' : page_count,
+        'products' : products[0:6],
+        jscontext('category_id') : category_id,
+        jscontext('page_count') : page_count,
+        jscontext('page') : 1,
     }
     return request.dmp.render('index.html', context)
 
 @view_function
-def product(request):
+def products(request, category:cmod.Category = None, page:int=1):
     products = cmod.Product.objects.all()
+
+    begin = (page - 1) * 6
+    end = (page * 6)
+
+    if category is not None:
+        products = products.filter(category__id=category.id)
+
+    products = products[begin:end]
+
     context = {
         'products' : products, 
+        jscontext('page') : page,
     }
-    return request.dmp.render('index.product.html', context)
+    return request.dmp.render('index.products.html', context)
