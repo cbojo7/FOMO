@@ -10,7 +10,6 @@ $(function(context) {
             page.text(context.page)
             container.load("/catalog/index.products/" +context.category_id + "/" + context.page + "/")
         })
-        
         left.on('click', function(){
             context.page--
             page.text(context.page)

@@ -12,12 +12,12 @@ def process_request(request, category:cmod.Category = None):
         products = cmod.Product.objects.all()
         count = products.count()
         page_count = math.ceil(count/6)
-        category_id=  0
+        category_id =  0
     else:
         products = cmod.Product.objects.filter(category=category)
         count = products.count()
         page_count = math.ceil(count/6)
-        category_id=  category.id
+        category_id =  category.id
 
     categories = cmod.Category.objects.all()
     
