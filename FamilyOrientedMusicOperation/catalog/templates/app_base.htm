@@ -1,5 +1,5 @@
 <%inherit file="/homepage/templates/base.htm" />
-
+<%! from catalog import models as cmod %>
 
 <%block name="navigation">
    
@@ -33,6 +33,17 @@
 </%block>
 
 
+
+
+<%block name="left">
+
+    <ul id="category-list">
+        <li class="$'active' if category is None else '' }"><a href="/catalog/index/">All Products</a></li>
+        %for c in cmod.Category.objects.all():
+            <li class="${ 'active' if id == c.id else ''}"><a href="/catalog/index/${ c.id }/">${ c.name }</a></li>
+        %endfor    </ul>
+</%block>
+
 <%block name="footer">
     <footer class="footer">
         <hr />
@@ -40,4 +51,20 @@
             &copy;${ datetime.now().year } Family Oriented Music Operation. All rights reserved.
             <br />
     </footer>
+</%block>
+
+<%block name="right">
+    <h2 id="last_five_title">Recently Viewed:</h2>
+    <ol id="last_five_list">
+        %if request.lastFive is None:
+            %for product in request.lastFive[1:6]:
+                <li>
+                    <a href="/catalog/detail/${ product.id }/">
+                        <div><img class="product_image" src="$ product.image_url }" /></div>
+                        <div class="product_title">${ product.name | h }</div>
+                    </a>
+                </li>
+            %endfor            
+        %endif
+    </ol>
 </%block>

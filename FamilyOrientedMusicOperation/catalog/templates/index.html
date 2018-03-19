@@ -4,14 +4,7 @@
 <br><br>
 
 </%block>
-<%block name="left">
-    <ul id="category_list">
-        <li class="${ 'active' if category is None else ''}"><a href="/catalog/index/">All Products</a></li>
-        %for c in categories:
-            <li class="${ 'active' if id == c.id else ''}"><a href="/catalog/index/${ c.id }/">${ c.name }</a></li>
-        %endfor
-    </ul>
-</%block>
+
 
 
 <%block name="center">

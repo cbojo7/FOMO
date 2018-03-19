@@ -1,10 +1,12 @@
 <div id="catalog">
+
     <ul id="product_list">
         %for p in products:
-            <li>
+            
+            <li><a href="/catalog/detail/${ p.id }">
                 <div class="price">${ p.price }</div>
                 <div><img class="image" src="${p.image_url()}"></div>
-                <div class="title">${ p.name }</div>
+                <div class="title">${ p.name }</div></a>
             </li>
         %endfor
     </ul>

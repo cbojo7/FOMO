@@ -25,7 +25,7 @@ h4.utc-time {
     POSITION: RELATIVE;
 }
 
-#product_list > li > .price {
+#product_list > li > a> .price {
     position: absolute;
     right: 0px;
     top: 0px;

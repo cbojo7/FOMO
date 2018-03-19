@@ -8,6 +8,9 @@ import math
 def process_request(request, category:cmod.Category = None):
     # c=cmod.Category.objects.get(id=category_id)
     #products = cmod.Product.objects.all()
+
+    
+
     if category is None:
         products = cmod.Product.objects.all()
         count = products.count()
@@ -43,9 +46,10 @@ def products(request, category:cmod.Category = None, page:int=1):
         products = products.filter(category__id=category.id)
 
     products = products[begin:end]
-
+    
     context = {
         'products' : products, 
         jscontext('page') : page,
+        'category' : category,
     }
     return request.dmp.render('index.products.html', context)

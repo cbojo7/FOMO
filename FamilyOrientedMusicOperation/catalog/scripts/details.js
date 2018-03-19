@@ -1,6 +1,6 @@
 $(function(context) {
     return function() {
-        var container = $('#product_container')
+        var productDetail = $('#product_container')
         right = $('#next_page')
         left = $('#previous_page')
         page = $('#page_number')
