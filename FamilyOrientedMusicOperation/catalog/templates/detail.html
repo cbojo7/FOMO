@@ -2,15 +2,37 @@
 
 <%block name="center">
     <div id="catalog">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-1">
-
-                </div>
-                <div class="col-md-4">
-                    
-                </div>
-            </div>
+        <h1>${ product.name }</h1>
+        <ul class="thumbnail_list">
+            %for i in product.images_urls():
+                <li><img src="${ i }" class="thumbnail_image"></li>
+            %endfor
+        </ul>
+        <img src="${ product.image_url() }" class="main_image">
+        <div class="description">
+            <p>${ product.description }</p>
         </div>
+        
+    </div>
+    <div>
+        %if product.TITLE == "Bulk":
+            <div id="quantity">
+                <h4>Quantity</h4>
+                <select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+        %endif
+        <br>
+        <button class="btn btn-primary" href="#">Buy Now</button>
     </div>
 </%block>

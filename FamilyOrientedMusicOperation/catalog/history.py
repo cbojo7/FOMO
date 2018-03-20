@@ -23,26 +23,25 @@ class LastFiveMiddleware:
     def __call__(self, request):
         # Code to be executed for each request before
         # the view (and later middleware) are called.
-        listFive = request.session.get('last_five', [])
+        
+        fiveList = request.session.get('last_five', [])
         request.lastFive = []
-        for i in listFive:
-            try 
-            catch:
+        for i in fiveList:
             product = cmod.Product.objects.get(id=i)
-            request.lastFive.insert(0, product)
-        listFive.clear()
-
-
+            request.lastFive.append(product)
+        print("---------")
+        print(request.lastFive)
         response = self.get_response(request)
 
         # Code to be executed for each request/response after
         # the view is called.
+        print("==========")
         print(request.lastFive)
-
+        fiveList = []
         for i in request.lastFive:
             itemId = i.id
-            listFive.insert(0, itemId)
-        request.session['last_five'] = listFive
-        listFive.clear()
-        request.lastFive.clear()
+            fiveList.append(itemId)
+        request.session['last_five'] = fiveList
+        print("000000000")
+        print(fiveList)
         return response

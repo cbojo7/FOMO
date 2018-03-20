@@ -54,13 +54,13 @@
 </%block>
 
 <%block name="right">
-    <h2 id="last_five_title">Recently Viewed:</h2>
+    <h3 id="last_five_title">Recently Viewed:</h3>
     <ol id="last_five_list">
-        %if request.lastFive is None:
+        %if request.lastFive is not None:
             %for product in request.lastFive[1:6]:
                 <li>
                     <a href="/catalog/detail/${ product.id }/">
-                        <div><img class="product_image" src="$ product.image_url }" /></div>
+                        <div><img class="product_image" src="${ product.image_url() }" /></div>
                         <div class="product_title">${ product.name | h }</div>
                     </a>
                 </li>

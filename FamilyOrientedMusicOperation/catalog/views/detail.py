@@ -6,10 +6,20 @@ import math
 
 @view_function
 def process_request(request, id:int=1):
+    
     product = cmod.Product.objects.get(id=id)
+
+    if product in request.lastFive:
+        request.lastFive.remove(product)
+    else: 
+        if len(request.lastFive) > 6:
+            request.lastFive.pop()
     request.lastFive.insert(0, product)
+    
+    print("__________")
     print(request.lastFive)
     context = {
         'product' : product ,
+        
     }
     return request.dmp.render('detail.html', context)

@@ -1,3 +1,14 @@
 #category-list {
     list-style-type: none;
 }
+#last_five_list {
+    list-style-type: none;
+}
+#last_five_list li img {
+    height: 100px;
+    width: 100px;
+
+}
+#last_five_list li, h3, h1 {
+    text-align: center;
+}
