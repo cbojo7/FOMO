@@ -29,19 +29,14 @@ class LastFiveMiddleware:
         for i in fiveList:
             product = cmod.Product.objects.get(id=i)
             request.lastFive.append(product)
-        print("---------")
-        print(request.lastFive)
         response = self.get_response(request)
 
         # Code to be executed for each request/response after
         # the view is called.
-        print("==========")
-        print(request.lastFive)
         fiveList = []
         for i in request.lastFive:
             itemId = i.id
             fiveList.append(itemId)
         request.session['last_five'] = fiveList
-        print("000000000")
-        print(fiveList)
+
         return response

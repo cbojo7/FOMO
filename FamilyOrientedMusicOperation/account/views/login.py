@@ -12,7 +12,7 @@ def process_request(request):
     form = LoginForm(request)
     if form.is_valid():
         form.commit()
-        return HttpResponseRedirect('/account/')
+        return HttpResponseRedirect('/homepage/')
 
     # render the form
     context = {

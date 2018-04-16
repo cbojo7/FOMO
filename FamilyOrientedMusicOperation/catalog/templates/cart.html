@@ -1,0 +1,27 @@
+<%inherit file="app_base.htm"/>
+
+<%block name="center">
+    <h1>Shopping Cart</h1></br>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Calculated</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            %for i in order.active_items(include_tax_item=False):
+                <tr>
+                    <td>${ i.product.name }</td>
+                    <td>${ i.price }</td>
+                    <td>${ i.quantity }</td>
+                    <td>${ i.extended }</td>
+                    <td><a href=""><span class="glyphicon glyphicon-remove"></span></a></td>
+                </tr>
+        </tbody>
+    </table>
+</%block>
