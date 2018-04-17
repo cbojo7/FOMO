@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'cuser',
     'account',
     'formlib',
+    'stripe',
     'catalog',
     'manager',
     'homepage',
