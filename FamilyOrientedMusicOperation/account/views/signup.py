@@ -65,5 +65,5 @@ class SignUp(Formless):
         self.u1.state = self.cleaned_data['state']
         self.u1.zip =self.cleaned_data['zip']
         self.u1.email = self.cleaned_data['email']
-        self.u1.set_password('password')
+        self.u1.set_password(self.cleaned_data['password'])
         self.u1.save()

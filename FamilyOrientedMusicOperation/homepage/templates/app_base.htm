@@ -24,7 +24,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                     % if request.user.is_authenticated:
-                    % if request.user.orders.filter( status='cart')  and len(request.user.orders.filter( status='cart').first().active_items(include_tax_item=False)) > 0:
+                    % if request.user.orders.filter( status='cart') and len(request.user.orders.filter( status='cart').first().active_items(include_tax_item=False)) > 0:
                         <li class='nav-cart nav-item'>
                             <a href='/catalog/cart/' class='nav-link'>
                                 <i class="material-icons">shopping_cart</i>

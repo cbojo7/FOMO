@@ -1,25 +1,26 @@
 <%inherit file="app_base.htm"/>
+<%namespace name="fl" module="formlib.tags"/>
 
 <%block name="center">
 
-    <h2>You are about to pay ${} </h2>
+    <h2>You are about to pay $${ cart.total_price } </h2>
 
     <div class="form-container">
-        ${ csrf }
-        ${ form }
-
+       <!-- <%fl:render> === ${ form } </%fl:render> -->
     </div>
-
-    <form action="your-server-side-code" method="POST">
-        <script
-        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-        data-key="pk_test_7qepvfp04iaScAgoe90qtEMF"
-        data-amount="999"
-        data-name="Demo Site"
-        data-description="Widget"
-        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-        data-locale="auto">
-        </script>
-    </form>
+    <%fl:render>
+        <form action="your-server-side-code" method="POST">
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="${ settings.STRIPE_PUBLIC_KEY }"
+                data-amount="${ int(cart.total_price * 100 )}"
+                data-name="FOMO"
+                data-description="Widget"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto"
+                data-label="Pay Now">
+            </script>
+        </form>
+    <%fl:render>
 
 </%block>

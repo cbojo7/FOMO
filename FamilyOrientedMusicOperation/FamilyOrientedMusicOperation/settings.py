@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import shutil
+import stripe
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_mako_plus',
+    'cuser',
     'account',
     'formlib',
-    'cuser',
     'catalog',
     'manager',
     'homepage',
@@ -62,8 +63,6 @@ MIDDLEWARE = [
 
 #AUTH_USER_MODEL = 'cuser.CUser'
 AUTH_USER_MODEL = 'account.User'
-
-
 
 ROOT_URLCONF = 'FamilyOrientedMusicOperation.urls'
 
@@ -137,7 +136,7 @@ TEMPLATES = [
     },
     {
         'NAME': 'django',
-        'BACKEND': 'django.template.backends.django.DjangoTemplats',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -186,6 +185,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+STRIPE_PUBLIC_KEY = "pk_test_7qepvfp04iaScAgoe90qtEMF"
+STRIPE_SECRET_KEY = "sk_test_MpJjag53hbc9AzRe8sLG20Ff"
+stripe.api_key = STRIPE_PUBLIC_KEY
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

@@ -1,4 +1,5 @@
 <%inherit file="app_base.htm"/>
+<%namespace name="fl" module="formlib.tags"/>
 
 <%block name="center">
     <div id="catalog">
@@ -20,7 +21,7 @@
             <h4 class='text-danger'>Product Unavailable</h4>
         % else:
             <form method='post'>
-                <%namespace name="fl" module="formlib.tags"/>
+                
                 <%fl:render>
 
                 </%fl:render>

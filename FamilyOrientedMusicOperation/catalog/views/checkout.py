@@ -31,6 +31,7 @@ class CheckOut(Formless):
 
         try:
             cart.finalize(stripe_charge_token)
+            #stripe.charge.create() token, amount . other stuff
         except ValueError as e:
             traceback.print_exc()
             raise forms.ValidationError(e)

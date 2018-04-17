@@ -4,8 +4,6 @@ from catalog import models as cmod
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-
-@login_required(login_url='/account/login/')
 @view_function
 def process_request(request):
     user = request.user
@@ -14,8 +12,9 @@ def process_request(request):
         order = user.order.filter(STATUS_CHOICES='cart')
     else:
         HttpResponseRedirect(catalog/index)
-        
     context = {
         'order' : order,
     }
     return request.dmp.render('cart.html', context)
+
+def search(name, category)

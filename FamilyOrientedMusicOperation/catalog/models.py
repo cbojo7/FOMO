@@ -200,10 +200,19 @@ class Order(models.Model):
                     raise ValueError('Product unavailable')
 
             # contact stripe and run the payment (using the stripe_charge_token)
-            stripe_charge = stripe.Charge.create()
-
-
+            charge = stripe.Charge.create(
+                amount= int(self.total_price) * 100,
+                currency='usd',
+                description=self.order,
+                source=stripe_charge_token,
+            )
+           
             # finalize (or create) one or more payment objects
+            try:
+                stripe_charge = stripe.Charge.create()
+            except:
+                raise ValueError('charge did not go through')
+
 
             # set order status to sold and save the order
 
