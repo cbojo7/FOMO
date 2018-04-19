@@ -14,14 +14,17 @@
             </tr>
         </thead>
         <tbody>
-            %for i in order.active_items(include_tax_item=False):
+            %for i in order_w_tax:
                 <tr>
                     <td>${ i.product.name }</td>
                     <td>${ i.price }</td>
                     <td>${ i.quantity }</td>
                     <td>${ i.extended }</td>
-                    <td><a href=""><span class="glyphicon glyphicon-remove"></span></a></td>
+                    <td><a href="/catalog/delete/${ i.id }"><span class="glyphicon glyphicon-remove"></span></a></td>
                 </tr>
+            %endfor
         </tbody>
     </table>
+    <h3>${ order.total_price }</h3>
+    <a href='/catalog/checkout/${ order.id }'><button class='btn btn-primary'>Check out now</button></a>
 </%block>

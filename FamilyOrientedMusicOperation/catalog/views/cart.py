@@ -9,13 +9,16 @@ from django.contrib.auth.decorators import login_required
 @view_function
 def process_request(request):
     user = request.user
+    order = cmod.Order.objects.filter(status='cart', user=user).first()
 
-    if user.order.all():
-        order = user.order.filter(STATUS_CHOICES='cart')
-    else:
-        HttpResponseRedirect(catalog/index)
+    order_w_tax = order.active_items()
         
     context = {
         'order' : order,
+        'order_w_tax' : order_w_tax,
     }
+
+    if len(order.active_items(include_tax_item=False)) == 0:
+            return HttpResponseRedirect('/catalog/')
+
     return request.dmp.render('cart.html', context)

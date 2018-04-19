@@ -1,0 +1,14 @@
+<div id="results">
+
+    <ul id="product_list">
+        %if products:
+        %for p in products:
+            <li><a href="/catalog/detail/${ p.id }">
+                <div class="price">${ p.price }</div>
+                <div><img class="image" src="${p.image_url()}"></div>
+                <div class="title">${ p.name }</div></a>
+            </li>
+        %endfor
+        %endif
+    </ul>
+</div>

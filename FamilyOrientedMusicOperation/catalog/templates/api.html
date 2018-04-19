@@ -1,0 +1,16 @@
+<%inherit file="app_base.htm"/>
+
+<%block name="center">
+    <h1>Search</h1><br>
+    ${ form }
+
+    <div id="paginator" class="text-right">
+        <a id="previous_page"><span aria-hidden="true">&laquo;</span></a>
+        Page <span id="page_number">${ page }</span> of ${ page_count }
+        <a id="next_page"><span aria-hidden="true">&raquo;</span></a>
+    </div>
+    <div id="product_container">
+        <%include file='api.results.html' />
+    </div>
+    
+</%block>

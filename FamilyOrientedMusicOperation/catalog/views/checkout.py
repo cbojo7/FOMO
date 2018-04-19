@@ -4,16 +4,23 @@ from django.http import HttpResponseRedirect
 from formlib import Formless
 from django.conf import settings
 from catalog import models as cmod
+import traceback
+from django.core.exceptions import ValidationError
 
 @view_function
-def process_request(request):
-    form = CheckOut(request)
+def process_request(request, order:cmod.Order):
     
+    order.recalculate()
+
+    form = CheckOut(request, order=order)
+    form.submit_text = None
     if form.is_valid():
-        form.commit()
-        return HttpResponseRedirect('/catalog/thankyou/)
+        #form.commit()
+        return HttpResponseRedirect('/catalog/thankyou/')
+
     context = {
         'form' : form,
+        'order' : order,
     }
     return request.dmp.render('checkout.html', context)
 
@@ -26,13 +33,14 @@ class CheckOut(Formless):
         self.fields['stripeToken'] = forms.CharField(widget=forms.HiddenInput())
 
     def clean(self):
-        cart = self.request.cart
         stripe_charge_token = self.cleaned_data.get('stripeToken')
+        self.order.finalize(stripe_charge_token)
+        # try:
+            
+        #     #stripe.charge.create() token, amount . other stuff
+        # except Exception as e:
+        #     traceback.print_exc()
+        #     raise forms.ValidationError(e)
 
-        try:
-            cart.finalize(stripe_charge_token)
-            #stripe.charge.create() token, amount . other stuff
-        except ValueError as e:
-            traceback.print_exc()
-            raise forms.ValidationError(e)
+        return self.cleaned_data
         
