@@ -33,14 +33,13 @@ class CheckOut(Formless):
         self.fields['stripeToken'] = forms.CharField(widget=forms.HiddenInput())
 
     def clean(self):
-        stripe_charge_token = self.cleaned_data.get('stripeToken')
-        self.order.finalize(stripe_charge_token)
-        # try:
-            
-        #     #stripe.charge.create() token, amount . other stuff
-        # except Exception as e:
-        #     traceback.print_exc()
-        #     raise forms.ValidationError(e)
+        
+        try:
+            stripe_charge_token = self.cleaned_data.get('stripeToken')
+            self.order.finalize(stripe_charge_token)
+        except Exception as e:
+            traceback.print_exc()
+            raise forms.ValidationError(e)
 
         return self.cleaned_data
         

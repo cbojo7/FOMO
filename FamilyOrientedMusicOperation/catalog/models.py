@@ -209,33 +209,42 @@ class Order(models.Model):
             self.recalculate()
 
             # check that all products are available
-            order_products = self.active_items(include_tax_item=False)
-            for i in order_products:
-                if i.TITLE == 'Bulk':
+            order_items = self.active_items(include_tax_item=False)
+            for i in order_items:
+                if i.product.TITLE == 'Bulk':
                     if i.quantity > i.product.quantity:
                         raise ValueError('Products unavailable, check quantity available.')
-                elif i.quantity == 0:
-                    raise ValueError('Product unavailable')
+                # elif i.quantity == 0:
+                #     raise ValueError('Product unavailable')
 
+            stripe.api_key = "sk_test_MpJjag53hbc9AzRe8sLG20Ff"
             # contact stripe and run the payment (using the stripe_charge_token)
             charge = stripe.Charge.create(
                 amount= int(self.total_price) * 100,
                 currency='usd',
-                description=self.order,
+                description='Example',
                 source=stripe_charge_token,
             )
            
             # finalize (or create) one or more payment objects
-            try:
-                stripe_charge = stripe.Charge.create()
-            except:
-                raise ValueError('charge did not go through')
-
+            payment = Payment()
+            payment.order = self
+            payment.amount = self.total_price
+            payment.validation_code = stripe_charge_token
+            payment.save()
 
             # set order status to sold and save the order
+            self.status = 'sold'
+            self.save()
 
             # update product quantities for BulkProducts
             # update status for IndividualProducts
+            for i in order_items:
+                if i.product.TITLE == 'Bulk':
+                    i.product.quantity = i.product.quantity - i.quantity
+                else: 
+                    i.product.status = 'I'
+                i.product.save()
 
 
 class OrderItem(PolymorphicModel):

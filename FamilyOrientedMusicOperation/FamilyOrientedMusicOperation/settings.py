@@ -189,7 +189,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 STRIPE_PUBLIC_KEY = "pk_test_7qepvfp04iaScAgoe90qtEMF"
 STRIPE_SECRET_KEY = "sk_test_MpJjag53hbc9AzRe8sLG20Ff"
-stripe.api_key = STRIPE_PUBLIC_KEY
+stripe.api_key = STRIPE_SECRET_KEY
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
